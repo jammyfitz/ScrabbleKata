@@ -5,34 +5,18 @@ namespace ScrabbleKata.Services
 {
     public class PermutatorService
     {
-        public static List<char[]> CandidateList { get; set; }
-
-        public PermutatorService()
-        {
-            CandidateList = new List<char[]>();
-        }
-
-        public static void GetPer(char[] list)
-        {
-            int x = list.Length - 1;
-            GetPer(list, 0, x);
-        }
-        public void GetPer2(char[] list)
-        {
-            int x = list.Length - 1;
-            GetPer2(list, 0, x);
-        }
+        private static List<char[]> _candidateList { get; set; }
 
         public static List<string> GetPermutations(char[] list)
         {
-            CandidateList = new List<char[]>();
+            _candidateList = new List<char[]>();
 
             int x = list.Length - 1;
-            GetPer2(list, 0, x);
+            GetPer(list, 0, x);
 
             var stringCandidateList = new List<string>();
 
-            foreach (char[] candidate in CandidateList)
+            foreach (char[] candidate in _candidateList)
             {
                 stringCandidateList.Add(new string(candidate));
             }
@@ -41,20 +25,15 @@ namespace ScrabbleKata.Services
         }
 
         #region Private Methods
-        private static void Swap(ref char a, ref char b)
-        {
-            if (a == b) return;
-
-            a ^= b;
-            b ^= a;
-            a ^= b;
-        }
-
         private static void GetPer(char[] list, int k, int m)
         {
             if (k == m)
             {
-                Console.Write(list);
+                string tempEntry = new string(list);
+
+                _candidateList.Add(tempEntry.ToCharArray());
+
+                tempEntry = null;
             }
             else
                 for (int i = k; i <= m; i++)
@@ -65,24 +44,15 @@ namespace ScrabbleKata.Services
                 }
         }
 
-        private static void GetPer2(char[] list, int k, int m)
+        private static void Swap(ref char a, ref char b)
         {
-            if (k == m)
-            {
-                string tempEntry = new string(list);
+            if (a == b) return;
 
-                CandidateList.Add(tempEntry.ToCharArray());
-
-                tempEntry = null;
-            }
-            else
-                for (int i = k; i <= m; i++)
-                {
-                    Swap(ref list[k], ref list[i]);
-                    GetPer2(list, k + 1, m);
-                    Swap(ref list[k], ref list[i]);
-                }
+            a ^= b;
+            b ^= a;
+            a ^= b;
         }
+
 
         #endregion
     }

@@ -55,6 +55,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Repositories\ScrabbleRepository.cs" />
+    <Compile Include="Services\AnagramService.cs" />
     <Compile Include="Services\DictionaryService.cs" />
     <Compile Include="Services\PermutatorService.cs" />
     <Compile Include="Services\ScrabbleService.cs" />
